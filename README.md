@@ -1,5 +1,13 @@
 # Proyecto de Aplicacion Modularizada con Spring boot para una tienda de comestibles
 
+![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
+![H2](https://img.shields.io/badge/H2-003545?style=for-the-badge&logo=h2&logoColor=white)
+![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white)
+![Gradle](https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white)
+
 ## Descripción
 
 Esta es una aplicación desarrollada con Spring Boot y Java. Proporciona un servicio RESTful para gestionar una tienda minorista y llevar acabo un inventario de productos.
@@ -53,19 +61,23 @@ Antes de comenzar, asegúrate de tener los siguientes componentes instalados:
 El proyecto escucha peticiones por defecto por la red local: [http://localhost:8080/api/categories](http://localhost:8080/api/categories)
 Existen dos rutas en la aplicacion: /api/products y /api/categories.
 
-5. Consumir con el cliente http a traves de la terminal: Existen dos usuarios: user y admin los usuario, los cuales comparten la misma contraseña: password. (Los filtros de spring security verificaran la autenticacion y la autorizacion sobre los recursos del sistema)
+5. Consumir con el cliente http a traves de la terminal:
+   Existen dos usuarios: **user** y **admin** los usuario, los cuales comparten la misma contraseña: **password**
 
    Consumo con el usuario: user. Peticion hacia la ruta productos
+
    ```sh
    http -a user:password "localhost:8080/api/products?page=2&size=4"
    ```
 
    Consumo con el usuario: admin. Peticion hacia la ruta de categories
+
    ```sh
    http -a admin:password "localhost:8080/api/products?page=2&size=4"
    ```
 
 6.- (Opcional) Para correr las pruebas del proyecto con Gradle, copia y pega en la terminal el siguiente comando:
-    ```sh
-    ./gradlew test
-    ```
+
+```sh
+ ./gradlew test
+```
