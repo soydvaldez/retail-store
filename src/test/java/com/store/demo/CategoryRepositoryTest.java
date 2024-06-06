@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.test.annotation.DirtiesContext;
+
 import com.store.demo.api.categories.dto.CategoryDTO;
 import com.store.demo.api.categories.entity.Category;
 import com.store.demo.api.categories.repository.CategoryRepository;
@@ -18,22 +20,20 @@ import com.store.demo.api.security.entity.User;
 import com.store.demo.api.security.repository.UserRepository;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@DirtiesContext
 public class CategoryRepositoryTest {
 
     @Autowired
     CategoryRepository categoryRepository;
 
-    @Test
-    void shouldReturnCategoriesWithoutProducts() {
-        // List<Category> categories = categoryRepository.findAllCategoriesWithoutProducts();
-        // assertThat(categories.size()).isEqualTo(3);
-    }
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
     void shouldReturnAllCategoriesWithProductsPerCategory() {
         List<Category> categories = categoryRepository.findAll();
         assertThat(categories.size()).isEqualTo(3);
-        categories.stream().map(this::create); 
+        categories.stream().map(this::create);
     }
 
     public CategoryDTO create(Category category) {
@@ -46,10 +46,6 @@ public class CategoryRepositoryTest {
         return new CategoryDTO(category.getId(), category.getNombre(), category.getDescripcion(), productDTOs);
     }
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Test
     public void testH2DataLoad() {
         List<User> entities = userRepository.findAll();
         assertFalse(entities.isEmpty());

@@ -64,3 +64,8 @@ test {
         showStandardStreams = false
     }
 }
+
+
+jar {
+    enabled = false
+}

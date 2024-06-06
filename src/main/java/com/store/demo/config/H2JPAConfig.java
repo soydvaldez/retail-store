@@ -72,12 +72,11 @@ public class H2JPAConfig {
         return transactionManager;
     }
 
-    private java.util.Properties additionalProperties() {
+    private Properties additionalProperties() {
         java.util.Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         // properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-        // properties.setProperty("hibernate.dialect",
-        // "org.hibernate.dialect.H2Dialect");
+        // properties.setProperty("hibernate.dialect","org.hibernate.dialect.H2Dialect");
         return properties;
     }
 

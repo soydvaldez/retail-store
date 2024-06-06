@@ -13,8 +13,7 @@ import jakarta.persistence.EntityManagerFactory;
 
 import javax.sql.DataSource;
 import org.springframework.boot.jdbc.DataSourceBuilder;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:datasource.properties")
@@ -52,11 +51,11 @@ public class PostgresJPAConfig {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
 
-        Map<String, Object> properties = new HashMap<>();
+        Properties properties = new java.util.Properties();
         // properties.put("hibernate.hbm2ddl.auto", "create");
-        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");        
+        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 
-        em.setJpaPropertyMap(properties);
+        em.setJpaProperties(properties);
         em.setPersistenceUnitName("postgresqlPersistenceUnit");
 
         return em;

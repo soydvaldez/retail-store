@@ -1,6 +1,5 @@
 package com.store.demo.api.categories.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,28 +20,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
+    
     @Autowired
     CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<List<Category>> getCategoriesPaged(Pageable pageable) {
-        Page<Category> page = categoryService.findAll(
+    public ResponseEntity<Page<Category>> getCategoriesPaged(Pageable pageable) {
+        Page<Category> page = categoryService.getCategories(
                 PageRequest.of(
                         pageable.getPageNumber(),
                         pageable.getPageSize(),
                         pageable.getSortOr(Sort.by(Sort.Direction.ASC, "id"))));
-        return ResponseEntity.ok(page.getContent());
-    }
-
-    @GetMapping("/products")
-    public ResponseEntity<List<CategoryDTO>> getCategoriesWithProductsPaged(Pageable pageable) {
-        Page<CategoryDTO> page = categoryService.getCategoriesWithProductsPaged(
-                PageRequest.of(
-                        pageable.getPageNumber(),
-                        pageable.getPageSize(),
-                        pageable.getSortOr(Sort.by(Sort.Direction.ASC, "id"))));
-
-        return ResponseEntity.ok(page.getContent());
+        return ResponseEntity.ok(page);
     }
 
     @GetMapping("/{id}")
@@ -53,7 +42,17 @@ public class CategoryController {
         } else {
             return ResponseEntity.notFound().build();
         }
-        // return category;
+    }
+
+    @GetMapping("/products")
+    public ResponseEntity<Page<CategoryDTO>> getCategoriesWithProductsPaged(Pageable pageable) {
+        Page<CategoryDTO> page = categoryService.getCategoriesWithProductsPaged(
+                PageRequest.of(
+                        pageable.getPageNumber(),
+                        pageable.getPageSize(),
+                        pageable.getSortOr(Sort.by(Sort.Direction.ASC, "id"))));
+
+        return ResponseEntity.ok(page);
     }
 
     @GetMapping("/{id}/products")
@@ -64,9 +63,4 @@ public class CategoryController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
 }
-
-// /categories/1/products
-// /categories/products
-// /categories/
