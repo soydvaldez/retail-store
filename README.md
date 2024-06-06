@@ -1,4 +1,4 @@
-# Proyecto de Aplicacion Modularizada con Spring boot para una tienda de comestibles
+# Retail-store
 
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
