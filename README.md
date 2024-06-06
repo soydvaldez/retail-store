@@ -6,13 +6,13 @@ Esta es una aplicación desarrollada con Spring Boot y Java. Proporciona un serv
 
 ## Dependencias del proyecto
 
-**Spring Security:** Para seguridad verifica la autenticacion y autorizacion de los usuarios
-**Spring Data:** Para las anotationes y crear de forma automatica CRUD, Repositorios e Entidades
-**Spring MVC:** Para escuchar y responder peticiones de red
-**Lombok:** Genera constructores, metodos setters and getter, builder, logs de forma rapida con anotaciones
-**H2:** Como base de datos en Memoria
-**Spring devtools:** Para agilizar refrescar cambios en el codigo fuente y agilizar el desarrallo
-**JUnit:** para testing pruebas integracion y unitarias
+- **Spring Security:** Para seguridad verifica la autenticacion y autorizacion de los usuarios
+- **Spring Data:** Para las anotationes y crear de forma automatica CRUD, Repositorios e Entidades
+- **Spring MVC:** Para escuchar y responder peticiones de red
+- **Lombok:** Genera constructores, metodos setters and getter, builder, logs de forma rapida con anotaciones
+- **H2:** Como base de datos en Memoria
+- **Spring devtools:** Para agilizar refrescar cambios en el codigo fuente y agilizar el desarrallo
+- **JUnit:** para testing pruebas integracion y unitarias
 
 ## Requisitos
 
@@ -55,18 +55,17 @@ Existen dos rutas en la aplicacion: /api/products y /api/categories.
 
 5. Consumir con el cliente http a traves de la terminal: Existen dos usuarios: user y admin los usuario, los cuales comparten la misma contraseña: password. (Los filtros de spring security verificaran la autenticacion y la autorizacion sobre los recursos del sistema)
 
-   #Consumo con el usuario: user. Peticion hacia la ruta productos
+   Consumo con el usuario: user. Peticion hacia la ruta productos
    ```sh
    http -a user:password "localhost:8080/api/products?page=2&size=4"
    ```
 
-   #Consumo con el usuario: admin. Peticion hacia la ruta de categories
+   Consumo con el usuario: admin. Peticion hacia la ruta de categories
    ```sh
    http -a admin:password "localhost:8080/api/products?page=2&size=4"
    ```
 
-6.- (Opcional) Para realizar testing con Gradle, copia y pega en la terminal sobre la raiz del proyecto clonado:
-
+6.- (Opcional) Para correr las pruebas del proyecto con Gradle, copia y pega en la terminal el siguiente comando:
     ```sh
     ./gradlew test
     ```
