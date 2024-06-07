@@ -14,13 +14,13 @@ Esta es una aplicación desarrollada con Spring Boot y Java. Proporciona un serv
 
 ## Dependencias del proyecto
 
-- **Spring Security:** Para seguridad verifica la autenticacion y autorizacion de los usuarios
-- **Spring Data:** Para las anotationes y crear de forma automatica CRUD, Repositorios e Entidades
-- **Spring MVC:** Para escuchar y responder peticiones de red
-- **Lombok:** Genera constructores, metodos setters and getter, builder, logs de forma rapida con anotaciones
-- **H2:** Como base de datos en Memoria
-- **Spring devtools:** Para agilizar refrescar cambios en el codigo fuente y agilizar el desarrallo
-- **JUnit:** para testing pruebas integracion y unitarias
+- **Spring Security:** Seguridad en la aplicacion: proteje las rutas y los recursos del servidor de usuarios no autenticados o autorizados.
+- **Spring Data:** Crea de forma automatica CRUD, Repositorios e Entidades: Para poder interactuar con las bases de datos de forma mas rapida
+- **Spring Web:** Util para crear controladores y rutas para poder escuchar y responder peticiones de red
+- **Lombok:** Genera constructores, metodos setters and getter, buildersy logs de forma rapida atraves de anotaciones en las clases.
+- **H2:** Base de datos en memoria para hacer pruebas compatibles con JPA.
+- **Spring devtools:** Util para agilizar el desarrollo mediante la recarga de cambios en el codigo fuente.
+- **JUnit:** Para testing pruebas integracion y unitarias en los modulos de la aplicacion
 
 ## Requisitos
 

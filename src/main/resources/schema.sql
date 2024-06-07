@@ -1,15 +1,15 @@
-CREATE TABLE if not exists roles (
+CREATE TABLE roles (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL UNIQUE
 );
 
-CREATE TABLE if not exists users (
+CREATE TABLE users (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE if not exists  user_roles (
+CREATE TABLE users_roles (
     user_id BIGINT NOT NULL,
     role_id BIGINT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id),
@@ -18,13 +18,13 @@ CREATE TABLE if not exists  user_roles (
 );
 
 
-CREATE TABLE if not exists  categories (
+CREATE TABLE categories (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(255) NOT NULL,
     descripcion VARCHAR(255)
 );
 
-CREATE TABLE if not exists  products (
+CREATE TABLE products (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(255) NOT NULL,
     descripcion VARCHAR(255),
