@@ -73,15 +73,15 @@ Existen dos rutas en la aplicacion: /api/products y /api/categories.
 5. Consumir con el cliente http a traves de la terminal:
    Existen dos usuarios: **user** y **admin** los usuario, los cuales comparten la misma contraseña: **password**
 
-   Ejemplo de consumo con el usuario: user.
-   
+   **Ejemplo de consumo con el usuario: user**
+
    Peticion hacia la ruta productos:
 
    ```sh
    http -a user:password "localhost:8080/api/products?page=2&size=4"
    ```
 
-   Ejemplo de consumo con el usuario: admin.
+   **Ejemplo de consumo con el usuario: admin**
 
    Peticion hacia la ruta de categories:
 
