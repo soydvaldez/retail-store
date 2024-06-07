@@ -31,11 +31,12 @@ Antes de comenzar, asegúrate de tener los siguientes componentes instalados:
 
 ## Instalación
 
-1. Clona el repositorio en tu máquina local:
+1. Clona el repositorio en tu máquina local
+
    A traves de https:
 
    ```sh
-   git clone git@github.com:soydvaldez/retailer-store.git
+   git clone https://github.com/soydvaldez/retail-store.git
    ```
 
    A traves de ssh:
