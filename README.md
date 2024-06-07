@@ -36,7 +36,7 @@ Antes de comenzar, asegúrate de tener los siguientes componentes instalados:
    A traves de https:
 
    ```sh
-   git clone https://github.com/soydvaldez/retail-store.git
+   git clone https://github.com/soydvaldez/retailer-store.git
    ```
 
    A traves de ssh:
@@ -74,6 +74,7 @@ Existen dos rutas en la aplicacion: /api/products y /api/categories.
    Existen dos usuarios: **user** y **admin** los usuario, los cuales comparten la misma contraseña: **password**
 
    Ejemplo de consumo con el usuario: user.
+   
    Peticion hacia la ruta productos:
 
    ```sh
@@ -81,6 +82,7 @@ Existen dos rutas en la aplicacion: /api/products y /api/categories.
    ```
 
    Ejemplo de consumo con el usuario: admin.
+
    Peticion hacia la ruta de categories:
 
    ```sh
