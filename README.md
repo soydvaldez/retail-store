@@ -32,6 +32,13 @@ Antes de comenzar, asegúrate de tener los siguientes componentes instalados:
 ## Instalación
 
 1. Clona el repositorio en tu máquina local:
+   A traves de https:
+
+   ```sh
+   git clone git@github.com:soydvaldez/retailer-store.git
+   ```
+
+   A traves de ssh:
 
    ```sh
    git clone git@github.com:soydvaldez/retailer-store.git
@@ -58,19 +65,22 @@ Antes de comenzar, asegúrate de tener los siguientes componentes instalados:
 
 ## Consumo de las apis
 
-El proyecto escucha peticiones por defecto por la red local: [http://localhost:8080/api/categories](http://localhost:8080/api/categories)
+El proyecto escucha peticiones por defecto por la red local: [http://localhost:8080/api/](http://localhost:8080/)
+
 Existen dos rutas en la aplicacion: /api/products y /api/categories.
 
 5. Consumir con el cliente http a traves de la terminal:
    Existen dos usuarios: **user** y **admin** los usuario, los cuales comparten la misma contraseña: **password**
 
-   Consumo con el usuario: user. Peticion hacia la ruta productos
+   Ejemplo de consumo con el usuario: user.
+   Peticion hacia la ruta productos:
 
    ```sh
    http -a user:password "localhost:8080/api/products?page=2&size=4"
    ```
 
-   Consumo con el usuario: admin. Peticion hacia la ruta de categories
+   Ejemplo de consumo con el usuario: admin.
+   Peticion hacia la ruta de categories:
 
    ```sh
    http -a admin:password "localhost:8080/api/products?page=2&size=4"
