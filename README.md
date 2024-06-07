@@ -33,13 +33,13 @@ Antes de comenzar, asegúrate de tener los siguientes componentes instalados:
 
 1. Clona el repositorio en tu máquina local
 
-   A traves de https:
+   **A traves de https:**
 
    ```sh
    git clone https://github.com/soydvaldez/retailer-store.git
    ```
 
-   A traves de ssh:
+   **A traves de ssh:**
 
    ```sh
    git clone git@github.com:soydvaldez/retailer-store.git
