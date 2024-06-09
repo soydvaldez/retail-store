@@ -85,7 +85,8 @@ public class H2JPAConfig {
         return new String[] {
                 "com.store.demo.api.products.entity",
                 "com.store.demo.api.security.entity",
-                "com.store.demo.api.categories.entity"
+                "com.store.demo.api.categories.entity",
+                "com.store.demo.api.suppliers.entity"
         };
     }
 }

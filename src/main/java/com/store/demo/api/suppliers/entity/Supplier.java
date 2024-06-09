@@ -1,4 +1,4 @@
-package com.store.demo.api.categories.entity;
+package com.store.demo.api.suppliers.entity;
 
 import java.util.List;
 
@@ -19,29 +19,31 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "suppliers")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Category {
+public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "categoryID")
-    private Long id;
+    @Column(name = "supplierID")
+    private Long supplierID;
+    @Column(name = "companyName")
+    private String companyName;
+    @Column(name = "contactName")
+    private String contactName;
+    @Column(name = "contactTitle")
+    private String contactTitle;
+    @Column(name = "address")
+    private String address;
+    @Column(name = "city")
+    private String city;
+    @Column(name = "country")
+    private String country;
+    @Column(name = "phone")
+    private String phone;
 
-    @Column(name = "categoryName")
-    private String nombre;
-
-    @Column(name = "description")
-    private String descripcion;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Product> products;
-
-    public Category(Long id, String nombre, String descripcion) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-    }
 }

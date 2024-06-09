@@ -43,9 +43,9 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/h2-console/**").hasAnyRole("ADMIN")
                         .requestMatchers("/admin/**").hasAnyRole("ADMIN")
-                        .requestMatchers("/products/**").hasAnyRole("ADMIN", "USER")
-                        .requestMatchers("/h2-console/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/api/products/**","/api/suppliers/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/products/test/**").hasAnyRole("ALL-TOP-PRIVILEGES")
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
@@ -54,8 +54,7 @@ public class SecurityConfig {
         // Configuracion para h2
         http
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**", "/products/**")); // Deshabilitar CSRF para
-                                                                                               // H2
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**", "/products/**")); // Deshabilitar CSRF para H2
         return http.build();
 
     }

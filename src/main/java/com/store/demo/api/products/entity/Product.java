@@ -1,6 +1,7 @@
 package com.store.demo.api.products.entity;
 
 import com.store.demo.api.categories.entity.Category;
+import com.store.demo.api.suppliers.entity.Supplier;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,15 +23,22 @@ import lombok.NoArgsConstructor;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "productID")
     private Long id;
-    @Column(name = "nombre")
+    @Column(name = "productName")
     private String nombre;
-    @Column(name = "descripcion")
+    @Column(name = "description")
     private String descripcion;
-    @Column(name = "precio")
+    @Column(name = "unitPrice")
     private Double precio;
     
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "categoryId")
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "supplierId")
+    private Supplier supplier;
+
+    
 }

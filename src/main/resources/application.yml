@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: retail-store
+  sql:
+    init:
+      schema-locations: classpath:./schema.sql,file:./scripts/sql/schema.sql,file:./scripts/sql/security/auth-schema.sql
+      data-locations: classpath:./data.sql,file:./scripts/sql/data.sql,file:./scripts/sql/security/auth-data.sql
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+logging:
+  level:
+    org:
+      springframework:
+        web: warn
+server:
+  error:
+    include-message: never
