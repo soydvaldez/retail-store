@@ -24,8 +24,9 @@ import java.util.stream.Collectors;
 @Configuration
 @ComponentScan(basePackages = "com.store.demo.api.security")
 // @EnableJpaRepositories(basePackages = {
-//         "com.store.demo.api.security.repository"
-// }, entityManagerFactoryRef = "H2EntityManagerFactory", transactionManagerRef = "H2TransactionManager")
+// "com.store.demo.api.security.repository"
+// }, entityManagerFactoryRef = "H2EntityManagerFactory", transactionManagerRef
+// = "H2TransactionManager")
 @EntityScan(basePackages = "com.store.demo.api.security.entity")
 @EnableWebSecurity
 public class SecurityConfig {
@@ -35,17 +36,19 @@ public class SecurityConfig {
     private UserRepository userRepository;
 
     public SecurityConfig(UserRepository userRepository) {
-    this.userRepository = userRepository;
+        this.userRepository = userRepository;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/swagger-ui/**").permitAll()
-                        .requestMatchers("/h2-console/**").hasAnyRole("ADMIN")
+                        .requestMatchers("/h2-console/**")
+                        .hasAnyRole("ADMIN")
                         .requestMatchers("/admin/**").hasAnyRole("ADMIN")
-                        .requestMatchers("/api/products/**","/api/suppliers/**").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/api/products/**", "/api/suppliers/**", "/swagger-ui/**", "/swagger-ui.html",
+                                "/api-docs/**")
+                        .hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/products/test/**").hasAnyRole("ALL-TOP-PRIVILEGES")
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
@@ -54,7 +57,8 @@ public class SecurityConfig {
         // Configuracion para h2
         http
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**", "/products/**")); // Deshabilitar CSRF para H2
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**", "/products/**")); // Deshabilitar CSRF para
+                                                                                               // H2
         return http.build();
 
     }
