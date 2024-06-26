@@ -1,0 +1,94 @@
+openapi: 3.0.0
+info:
+  title: Retail Store APIs
+  description: Desde aqui puedes consultar la documentación donde se ejemplifica  el consumo de las APIS existentes en la aplicación.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api/
+paths:
+  /products:
+    get:
+      summary: Obtener lista de Products
+      description: Retorna una lista de productos del sistema.
+      responses:
+        "200":
+          description: Una lista de Products.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+  /categories:
+    get:
+      summary: Retorna una lista de categorias
+      description: Retorna una lista de categorias registradas en la aplicacion
+      responses:
+        "200":
+          description: Detalles del Product.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "404":
+          description: Product no encontrado
+  /categories/{id}/products:
+    get:
+      summary: Retorna una categoria junto con sus productos asociados
+      description: Retorna una categoria junto con todos sus productos asociados al id de la categoria proporcionada en el parametro.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID de la categoria a consultar
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Detalles de la categoria junto con un arreglo de los productos asociados.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        "404":
+          description: Categoria no encontrada
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        descripcion:
+          type: string
+        products:
+          type: array
+          xml:
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/Product'
+      required:
+        - id
+        - nombre
+        - email
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        nombre:
+          type: string
+        descripcion:
+          type: string
+        precio:
+          type: integer
+          format: int64
+      required:
+        - id
+        - nombre
+        - email
