@@ -89,6 +89,27 @@ Existen dos rutas en la aplicacion: /api/products y /api/categories.
    http -a admin:password "localhost:8080/api/products?page=2&size=4"
    ```
 
+### Consumo de las apis desde Swagger
+
+Para acceder a la documentacion de Swagger UI ingresa a link: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+
+![Texto Alternativo](./assets/Screenshot%20-swagger-credentials.png)
+
+Solicitara un usuario y contraseña, puedes utilizar dos:
+
+   **Usuario con privilegios sobre swagger UI**
+   Username: user
+   Password: password
+
+   **Usuario Administrador**
+   Username: admin
+   Password: password
+
+Despues de ingresar las contraseñas debes de poder acceder a la documentacion:
+![Texto Alternativo](./assets/swagger-screenshot.png)
+
+
+
 6.- (Opcional) Para correr las pruebas del proyecto con Gradle, copia y pega en la terminal el siguiente comando:
 
 ```sh
