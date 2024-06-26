@@ -36,18 +36,18 @@ Antes de comenzar, asegúrate de tener los siguientes componentes instalados:
    **A traves de https:**
 
    ```sh
-   git clone https://github.com/soydvaldez/retailer-store.git
+   git clone https://github.com/soydvaldez/retail-store.git
    ```
 
    **A traves de ssh:**
 
    ```sh
-   git clone git@github.com:soydvaldez/retailer-store.git
+   git clone git@github.com:soydvaldez/retail-store.git
    ```
 
 2. Navega al directorio del proyecto:
-   ```sh retailer-store/
-   cd retailer-store/
+   ```sh
+   cd retail-store/
    ```
 
 ## Ejecución
@@ -78,7 +78,7 @@ Existen dos rutas en la aplicacion: /api/products y /api/categories.
    Peticion hacia la ruta productos:
 
    ```sh
-   http -a user:password "localhost:8080/api/products?page=2&size=4"
+   http -a user:password "localhost:8080/api/products?page=0&size=4"
    ```
 
    **Ejemplo de consumo con el usuario: admin**
@@ -86,7 +86,7 @@ Existen dos rutas en la aplicacion: /api/products y /api/categories.
    Peticion hacia la ruta de categories:
 
    ```sh
-   http -a admin:password "localhost:8080/api/products?page=2&size=4"
+   http -a admin:password "localhost:8080/api/products?page=0&size=4"
    ```
 
 ### Consumo de las apis desde Swagger UI
