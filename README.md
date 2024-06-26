@@ -46,8 +46,8 @@ Antes de comenzar, asegúrate de tener los siguientes componentes instalados:
    ```
 
 2. Navega al directorio del proyecto:
-   ```sh retail-store/
-   cd retailer-store/
+   ```sh
+   cd retail-store/
    ```
 
 ## Ejecución
