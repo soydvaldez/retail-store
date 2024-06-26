@@ -95,11 +95,11 @@ Para acceder a la documentacion de Swagger UI ingresa a link: [http://localhost:
 
 Solicitara un usuario y contraseña, puedes utilizar dos:
 
-   **Usuario 1**
+   * **Usuario 1**
       * Username: user
       * Password: password
 
-   **Usuario 2**
+   * **Usuario 2**
       * Username: admin
       * Password: password
 
