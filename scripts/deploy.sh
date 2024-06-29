@@ -4,14 +4,14 @@
 # Ruta del proyecto
 PROJECT_PATH=${PROJECT_PATH:-$1}
 if [ -z "$PROJECT_PATH" ]; then
-  echo "Error ingreso la ruta del proyecto para continar: Saliendo con estatus 1"
+  echo "Error: Ingresa el [PROJECT_PATH] para continar. \nFinalizado con estatus 1"
   exit 1
 fi
 
 # Nombre del archivo jar
 JAR_NAME=${JAR_NAME:-$2}
 if [ -z "$JAR_NAME" ]; then
-  echo "Error ingresa el nombre del archivo JAR para continuar: Saliendo con estatus 1"
+  echo "Error: Ingresa el [JAR_NAME] para continuar \nFinalizado con estatus 1"
   exit 1
 fi
 
@@ -97,7 +97,6 @@ run() {
   tools && 
   build &&
   copyToServer &&
-  start_server &&
   start_server &&
   check_health_server
   #Ejecuta en segundo plano y agrega un PID

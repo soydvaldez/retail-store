@@ -1,8 +1,10 @@
-# Usar la imagen base de OpenJDK
-FROM amazoncorretto:17-alpine3.16
+ARG BUILD_HOME=/home/gradle/project
 
-# Establecer el directorio de trabajo en el contenedor
-WORKDIR /app
+# Stage1: Build Usar la imagen base de gradle:8-jdk17-alpine
+FROM gradle:8.6.0-jdk17-alpine AS build
+
+# Set the working directory inside the container
+WORKDIR /home/gradle/project
 
 # Copiar los archivos de construcción de Gradle
 COPY ./gradlew ./gradlew
@@ -14,14 +16,28 @@ COPY ./src ./src
 # Copiar el directorio de scripts
 COPY ./scripts ./scripts
 
+RUN gradle wrapper
+
 # Dar permisos de ejecución al gradlew
-RUN chmod +x ./gradlew
+RUN chmod u+x ./gradlew
 
 # Construir el proyecto usando Gradle
 RUN ./gradlew clean build
+
+# Usar la imagen base de OpenJDK
+FROM amazoncorretto:17-alpine3.16
+
+# Establecer el directorio de trabajo en el contenedor
+WORKDIR /app
+
+# RUN ls /home/gradle/project/
+
+# Copy the built JAR file from the previous stage
+COPY --from=build /home/gradle/project/build/libs/*.jar app.jar
 
 # Establecer el puerto en el que la aplicación correrá
 EXPOSE 8080
 
 # Ejecutar la aplicación
-ENTRYPOINT ["java", "-jar", "build/libs/demo-0.0.1-SNAPSHOT.jar"]
+
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
