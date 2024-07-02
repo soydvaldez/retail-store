@@ -1,10 +1,30 @@
 #!/bin/bash
 #Utilerias para generar y gestionar la imagen de la aplicacion: retail-store.
+#supuesto: El registry esta levantado, la imagen se creo con exito
 
-NAME_IMG="localhost:5000/retail-store:1.0.0"
+set -e
+
+IMG_NAME="localhost:5000/retail-store:1.0.0"
 CONTAINER_NAME="retail-store"
 
-PATH_LOGS_FILE=scripts/logs/utilities.log
+PATH_LOGS_FILE=scripts/logs/utilities_activity.log
+
+LOGFILE=scripts/logs/utilities_activity1.log
+BUILD_LOG=scripts/logs/utilities_activity2.log
+
+error_handler() {
+    local lineno=$1
+    local funcname=${FUNCNAME[1]}
+    echo "Error en la línea $lineno dentro de la función $funcname"
+}
+
+trap 'error_handler $LINENO' ERR
+
+check_error() {
+    if [[ "$?" -ne 0 ]]; then
+        echo "Hubo un Error. Ver $LOGFILE para mayor detalle"
+    fi
+}
 
 #Verifica el estado de un contenedor
 state_container() {
@@ -22,64 +42,66 @@ state_container() {
     # docker container inspect ${CONTAINER} | jq '.[].State'
 }
 
-#Genera la imagen: agrega un tag para nombrar e identificar el destino del docker registry.
+#Construye la imagen del proyecto:  Agrega un tag para nombrar y poder identificar la url del servidor docker registry.
 create() {
-    docker build -t ${NAME_IMG} .
+    docker build -t ${IMG_NAME} . 2> >(tee -a $LOGFILE >&2) | tee -a $BUILD_LOG
+    check_error "Error en la construccion de la imagen Docker"
 }
 
-#Agrega la imagen al registry
-add_to_registry() {
-    REGISTRY_NAME="registry"
+#Agrega la imagen del proeycto al servidor de docker registry
+addToRegistry() {
+    echo "[$(date +"%Y-%m-%d %H:%M:%S")] Funcion actual: add_to_registry"
+    local CONTAINER_NAME="registry"
 
-    container_is_exist() {
-        is_exists_container=$(docker ps -a --format "{{.Names}}" | awk "/${REGISTRY_NAME}/")
-        if [ "${is_exists_container}" != "" ]; then
-            echo "Existe el contenedor: ${REGISTRY_NAME}" >> "$PATH_LOGS_FILE"
+    is_container_exist() {
+        echo "[$(date +"%Y-%m-%d %H:%M:%S")] Funcion anidada (actual): is_container_exist  \t[OK]"
+        isContainerExists=$(docker ps -a --format "{{.Names}}" | awk "/${CONTAINER_NAME}/")
+        if [ "${isContainerExists}" = "" ]; then
+            echo "No existe el contenedor: $(echo $CONTAINER_NAME | tr 'a-z' 'A-Z')" | tee "$PATH_LOGS_FILE"
+            # echo "[$(date +"%Y-%m-%d %H:%M:%S")] El servicio registry esta detenido." >>$LOGFILE
+            docker run -it \
+                --name "${CONTAINER_NAME}" \
+                --restart always \
+                -v "$HOME/docker/volumes/registry:/var/lib/registry" \
+                -p 5000:5000 \
+                -d registry:2
         fi
-        
-        # check_health_docker_registry=$(curl -s localhost:5000/v2/_catalog | jq -r '.repositories[]')
-        # if [ "$check_health_docker_registry" = "" ]; then
-            # echo "[$(date +"%Y-%m-%d %H:%M:%S")] El servicio registry esta detenido." >>scripts/logs/utilities.log
-            # echo "[$(date +"%Y-%m-%d %H:%M:%S")] Levantando servicio" >>scripts/logs/utilities.log
-            # echo "[$(date +"%Y-%m-%d %H:%M:%S")] Verificando si existe el contenedor" >>scripts/logs/utilities.log
-            # echo "" >>scripts/logs/utilities.log
-            # exit 127
-        # fi
     }
 
-    is_running() {
+    # Aqui tengo una dependencia:
+    is_container_running() {
+        echo "[$(date +"%Y-%m-%d %H:%M:%S")] Funcion anidada (actual)] is_container_running \t[OK]"
         state_container=$(docker container inspect registry | jq '.[].State')
         if [[ $(echo $state_container | jq '.Running') == "false" ]]; then
             echo "No esta corriendo el contenedor"
-            docker start ${REGISTRY_NAME}
+            docker start ${CONTAINER_NAME}
+        fi
+
+        echo $state_container | jq .
+    }
+
+    check_health_container() {
+        echo "[$(date +"%Y-%m-%d %H:%M:%S")] Funcion anidada (actual)] check_health_container \t[OK]"
+        URL="localhost:5000/v2/_catalog"
+        http_code=$(curl -o /dev/null -s -w "%{http_code}" "$URL" | tr -d "\r")
+        if [ "$http_code" -eq 200 ]; then
+            echo "[$(date +"%Y-%m-%d %H:%M:%S")] Servicio docker registry esta levantado y escuchando peticiones por la URL: '$URL'" | tee ./scripts/logs/utilities.log
         fi
     }
 
-    # Dependo del is_running' para registrar la imagen
-    # is_running && docker push ${NAME_IMG}
-    
     #Dependencias
-    container_is_exist
+    is_container_exist && is_container_running && check_health_container && docker push ${IMG_NAME}
 }
 
-NAME_CONTAINER=""
-
 running_container() {
-    is_running_container() {
-
-    }
-    docker run --name retail-store:1.0.0 -p 8080:8080 ${NAME_IMG}
+    docker run --name retail-store -p 8080:8080 ${IMG_NAME}
 }
 
 run() {
-    create &&
-        add_to_registry
+    create && addToRegistry
     # running_container
 }
 
-# state_container "registry"
-add_to_registry
-
-# create
-echo "[message: salida estandar del script]"
-exit 127
+# run
+URL="localhost:8080/api/products"
+curl -s -u admin:password  $URL | jq ".content.[0]"

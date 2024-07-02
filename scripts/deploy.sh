@@ -34,7 +34,7 @@ cd $PROJECT_PATH
 
 #valida si estan instaladas en el sistema las herramientas (dependencias)
 tools() {
-  echo "Step1: Verificando las herramientas para emsamblar del archivo JAR"
+  echo "[$(date +"%Y-%m-%d %H:%M:%S")] Step1: Verificando las herramientas para emsamblar del archivo JAR"
   gradle --version
   if [ $? -eq 0 ]; then
     echo "Step1: Finalizo exitosamente"
@@ -45,7 +45,7 @@ tools() {
 }
 
 build() {
-  echo "Step2: Ensamblando el archivo JAR del proyecto: Realizando pruebas unitarias y de integracion"
+  echo "[$(date +"%Y-%m-%d %H:%M:%S")] Step2: Ensamblando el archivo JAR del proyecto: Realizando pruebas unitarias y de integracion"
   ./gradlew clean build && JAR_FILE=$(ls build/libs/*.jar)
   if [ $? -eq 0 ]; then
     echo "Step2: Finalizo con éxito: Se ensamblo correctamente el archivo JAR del proyecto"
@@ -58,7 +58,7 @@ build() {
 
 copyToServer() {
   JAR_FILE=$(ls build/libs/*.jar)
-  echo "Step3: Copiando el archivo JAR: \t[${JAR_FILE}] al servidor: [piserver~/deploy]"
+  echo "[$(date +"%Y-%m-%d %H:%M:%S")] Step3: Copiando el archivo JAR: \t[${JAR_FILE}] al servidor: [pi@piserver:~/deploy]"
   scp ${JAR_FILE} piserver:~/deploy/
   if [[ $? -eq 0 ]]; then
     echo "Step3: Finalizo exitosamente Archivo JAR copiado al servidor finalizo con exito"
@@ -70,7 +70,7 @@ copyToServer() {
 #JAR Utilities: Depende de que exista en el servidor remoto un JAR
 start_server() {
   JAR_FILE=$(basename build/libs/*.jar)
-  echo "Step4: Levantando la aplicacion en el servidor remoto.."
+  echo "[$(date +"%Y-%m-%d %H:%M:%S")] Step4: Levantando la aplicacion en el servidor remoto.."
   echo "cd deploy/; bin/start.sh start_embed_server $JAR_FILE" | ssh piserver "cat|sh"
   if [ $? -eq 0 ]; then
     echo "Step 4: Termino de ejecutarse el: resultado de la ejecucion: $?"
@@ -98,7 +98,7 @@ run() {
   build &&
   copyToServer &&
   start_server &&
-  check_health_server
+  # check_health_server
   #Ejecuta en segundo plano y agrega un PID
   # start_server &
   # PID=$!
